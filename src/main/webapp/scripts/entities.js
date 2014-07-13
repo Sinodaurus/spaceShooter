@@ -41,6 +41,10 @@ Body.prototype.location = function(x, y) {
 	this.x = x;
 	this.y = y;
 }
+Body.prototype.move = function(x, y) {
+	this.x = x;
+	this.y = y;
+}
 Body.prototype.health = function(health) {
 	this.health = health;
 }
