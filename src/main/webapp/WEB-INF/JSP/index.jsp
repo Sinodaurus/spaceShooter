@@ -5,13 +5,12 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="/spaceShooter/scripts/entities.js"></script>
-<script src="/spaceShooter/scripts/buildingBlocks.js"></script>
-<script src="/spaceShooter/scripts/play.js"></script>
+<script src="/spaceShooter/scripts/gameElements.js"></script>
+<script src="/spaceShooter/scripts/game.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(e) {
 		var player = new Player(1);
 		player.addGun(new Gun(GUNS.TYPE1));
-// 		alert(player.getGuns());
 		var game = new Game();
 		game.init();
 		game.play();

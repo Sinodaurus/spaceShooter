@@ -32,18 +32,70 @@ function Body(number) {
 	this.alive = true;
 	this.number = number;
 	this.guns = new Array();
+	this.animation = 0;
+	this.direction = 0;
 }
-Body.prototype.dimensions = function(height, width) {
-	this.height = height;
-	this.width = width;
+Body.prototype.dimensions = function(height, width, printSize) {
+	this.step = height;
+	this.height = (height / this.step) * printSize;
+	this.width = (width / this.step) * printSize;
 }
 Body.prototype.location = function(x, y) {
-	this.x = x;
-	this.y = y;
+	this.shipX = x;
+	this.shipY = y;
+	this.lastShipX = x;
+	this.lastShipY = y;
 }
-Body.prototype.move = function(x, y) {
-	this.x = x;
-	this.y = y;
+Body.prototype.setAnimation = function(animation) {
+	if(this.animation < 54) {
+		this.animation += animation * this.step;
+	}
+}
+Body.prototype.setImage = function(image) {
+	this.img = new Image();
+	this.img.src = image;
+}
+Body.prototype.image = function() {
+	return this.img;
+}
+Body.prototype.moveUp = function() {
+	this.shipY -= 3;
+}
+Body.prototype.moveDown = function() {
+	this.shipY += 3;
+}
+Body.prototype.moveLeft = function(key) {
+	if(key.isDown(first(key._pressed)) === true) {
+		this.direction = this.step;
+		this.animationStart();
+		this.shipX -= 3;
+	} else {
+		this.animationStop();
+	}
+}
+Body.prototype.moveRight = function(key) {
+	if(key.isDown(first(key._pressed)) === true) {
+	this.direction = 0;
+	this.animationStart();
+	this.shipX += 3;
+	} else {
+		this.animationStop();
+	}
+}
+function first(obj) {
+	for(var a in obj) return a;
+}
+Body.prototype.animationStart = function() {
+	for(var i = 0; i < 100000; i++) {
+	}
+	this.setAnimation(1);
+}
+Body.prototype.animationStop = function() {
+	while(this.animation !== 0) {
+		for(var i = 0; i < 100000; i++) {
+		}
+		this.animation -= this.step;
+	}
 }
 Body.prototype.health = function(health) {
 	this.health = health;

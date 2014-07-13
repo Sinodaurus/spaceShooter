@@ -1,11 +1,11 @@
 function GameConstruct() {
 }
 GameConstruct.prototype.init = function() {
-	this.shipX = 50;
-	this.shipY = 300;
+	this.player = new Player(1);
 	this.scroll_back = 0;
 	this.scroll_front = 0;
 	this.paused = false;
+	this.gameSpeed = 0;
 	this.canvas_background_still = document.getElementById('background_still');
 	this.canvas_background_moving = document.getElementById('background_moving');
 	this.canvas_ship = document.getElementById('ship');
@@ -16,9 +16,10 @@ GameConstruct.prototype.init = function() {
 		this.bckgImg_moving = new Image();
 		this.ctxBckgrMoving = this.canvas_background_moving.getContext('2d');
 		this.bckgImg_moving.src = "/spaceShooter/img/space_front.png";
-		this.shipImg = new Image();
 		this.ctxShip = this.canvas_ship.getContext('2d');
-		this.shipImg.src = "/spaceShooter/img/ship.png";
+		this.player.setImage("/spaceShooter/img/ship.png");
+		this.player.location(50, 300);
+		this.player.dimensions(18, 18, 40);
 	}
 	
 }
@@ -43,7 +44,7 @@ GameConstruct.prototype.drawBackground = function() {
 					}
 					_this.scroll_back += speed_back;
 				}
-			}, 20);
+			}, this.gameSpeed);
 		}
 		this.bckgImg_moving.onload = function() {
 			setInterval(function() {
@@ -58,17 +59,20 @@ GameConstruct.prototype.drawBackground = function() {
 					}
 					_this.scroll_front += speed_front;
 				}
-			}, 20);
+			}, this.gameSpeed);
 		}
 }
 GameConstruct.prototype.drawPlayer = function() {
 	var _this = this;
-	_this.shipImg.onload = function() {
+	_this.player.image().onload = function() {
 		setInterval(function() {
 			if(_this.paused === false) {
-				_this.ctxShip.drawImage(_this.shipImg, 0, 0, 18, 18, _this.shipX, _this.shipY, 30, 30);
+				_this.ctxShip.clearRect(_this.player.lastShipX, _this.player.lastShipY, _this.player.height, _this.player.width);
+				_this.ctxShip.drawImage(_this.player.img, _this.player.direction, _this.player.animation, _this.player.step, _this.player.step, _this.player.shipX, _this.player.shipY, _this.player.height, _this.player.width);
+				_this.player.lastShipY = _this.player.shipY;
+				_this.player.lastShipX = _this.player.shipX;
 			}
-		}, 20);
+		}, this.gameSpeed);
 		}
 	
 }
