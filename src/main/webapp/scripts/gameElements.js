@@ -19,9 +19,8 @@ GameConstruct.prototype.init = function() {
 		this.ctxShip = this.canvas_ship.getContext('2d');
 		this.player.setImage("/spaceShooter/img/ship.png");
 		this.player.location(50, 300);
-		this.player.dimensions(18, 18, 40);
+		this.player.dimensions(18, 18, 60);
 	}
-	
 }
 GameConstruct.prototype.pause = function() {
 	this.paused = true;

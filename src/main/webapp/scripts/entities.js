@@ -47,7 +47,7 @@ Body.prototype.location = function(x, y) {
 	this.lastShipY = y;
 }
 Body.prototype.setAnimation = function(animation) {
-	if(this.animation < 54) {
+	if(this.animation < 36) {
 		this.animation += animation * this.step;
 	}
 }
@@ -59,40 +59,31 @@ Body.prototype.image = function() {
 	return this.img;
 }
 Body.prototype.moveUp = function() {
-	this.shipY -= 3;
+	this.shipY -= 1;
 }
 Body.prototype.moveDown = function() {
-	this.shipY += 3;
+	this.shipY += 1;
 }
-Body.prototype.moveLeft = function(key) {
-	if(key.isDown(first(key._pressed)) === true) {
-		this.direction = this.step;
-		this.animationStart();
-		this.shipX -= 3;
-	} else {
-		this.animationStop();
-	}
+Body.prototype.moveLeft = function() {
+	this.direction = this.step;
+	this.animationStart();
+	this.shipX -= 1;
 }
-Body.prototype.moveRight = function(key) {
-	if(key.isDown(first(key._pressed)) === true) {
+Body.prototype.moveRight = function() {
 	this.direction = 0;
 	this.animationStart();
-	this.shipX += 3;
-	} else {
-		this.animationStop();
-	}
-}
-function first(obj) {
-	for(var a in obj) return a;
+	this.shipX += 1;
 }
 Body.prototype.animationStart = function() {
 	for(var i = 0; i < 100000; i++) {
+		if(true === false) break;
 	}
 	this.setAnimation(1);
 }
 Body.prototype.animationStop = function() {
 	while(this.animation !== 0) {
 		for(var i = 0; i < 100000; i++) {
+			if(true === false) break;
 		}
 		this.animation -= this.step;
 	}
